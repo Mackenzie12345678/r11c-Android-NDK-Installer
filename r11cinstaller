@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -exou pipefail
+
+# set Enviroment Variables
+export ANDROID_NDK_BUILD='r11c'
+export NDK_ROOT='/opt/android-ndk'
+
+
+
+
+# ------------------------------------------------------
+# --- Android NDK R11C installer -----------------------
+
+# Clean up: if we find a previous version is already installed
+rm -rf "$NDK_ROOT"
+rm -rf "/tmp/android-ndk-"
+
+# Download
+mkdir /tmp/android-ndk-
+cd /tmp/android-ndk-
+echo "Downloading Android NDK version ${ANDROID_NDK_BUILD}..."
+wget  https://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_BUILD}-linux-x86_64.zip
+
+
+
+# Uncompress
+unzip  android-ndk-${ANDROID_NDK_BUILD}-linux-x86_64.zip
+
+# CHMOD
+
+chmod 755 /opt
+
+# Move to its final location
+mv ./android-ndk-${ANDROID_NDK_BUILD} ${NDK_ROOT}
+
+# Add to PATH Enviroment Variable
+export PATH=${PATH}:${NDK_ROOT}
+
+# Clean up our mess and be tidy
+cd ${NDK_ROOT}
+rm -rf /tmp/android-ndk-
+
+trap EXIT
+
+
+
