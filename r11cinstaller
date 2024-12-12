@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 set -exou pipefail
 
-# set Enviroment Variables
+# set Bash Variables
 export ANDROID_NDK_BUILD='r11c'
 export NDK_ROOT='/opt/android-ndk'
-
-
-
-
 # ------------------------------------------------------
 # --- Android NDK R11C installer -----------------------
 
@@ -34,7 +30,14 @@ chmod 755 /opt
 mv ./android-ndk-${ANDROID_NDK_BUILD} ${NDK_ROOT}
 
 # Add to PATH Enviroment Variable
-export PATH=${PATH}:${NDK_ROOT}
+export PATH=${PATH}:${NDK_ROOT} 
+echo 'export PATH=${PATH}:${NDK_ROOT}'  >> ~/.bashrc
+export NDK_ROOT='/opt/android-ndk' 
+echo 'export NDK_ROOT='/opt/android-ndk'' >> ~/.bashrc
+
+# Reload Bashrc
+source ~./bashrc
+
 
 # Clean up our mess and be tidy
 cd ${NDK_ROOT}
